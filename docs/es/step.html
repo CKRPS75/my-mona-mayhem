@@ -11,7 +11,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mona Mayhem Workshop</title>
+    <title>Taller Mona Mayhem</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -29,10 +29,10 @@
         <div class="header-content">
             <a href="index.html" class="header-brand">
                 <span class="header-icon">🎮</span>
-                <span class="header-title">Mona Mayhem Workshop</span>
+                <span class="header-title">Taller Mona Mayhem</span>
             </a>
             <div class="header-nav">
-                <div class="track-toggle" role="tablist" aria-label="Workshop track toggle">
+                <div class="track-toggle" role="tablist" aria-label="Alternar itinerario del taller">
                     <button class="track-btn active" data-track="vscode" type="button">VS Code</button>
                     <button class="track-btn" data-track="cli" type="button">CLI</button>
                 </div>
@@ -89,9 +89,9 @@
             { id: '01-setup', file: '01-setup.md', title: 'Configuración e Ingeniería de Contexto', number: '01' },
             { id: '02-plan-and-scaffold', file: '02-plan-and-scaffold.md', title: 'Planificar y Estructurar', number: '02' },
             { id: '03-agent-mode', file: '03-agent-mode.md', title: 'Construir el Juego', number: '03' },
-            { id: '04-design-vibes', file: '04-design-vibes.md', title: 'Temas Design-First', number: '04' },
+            { id: '04-design-vibes', file: '04-design-vibes.md', title: 'Tematización orientada al diseño', number: '04' },
             { id: '05-polish', file: '05-polish.md', title: 'Pulido y Trabajo Paralelo', number: '05' },
-            { id: '06-bonus', file: '06-bonus.md', title: 'Bonus y Extensiones', number: '🎉' },
+            { id: '06-bonus', file: '06-bonus.md', title: 'Extras y extensiones', number: '🎉' },
         ];
 
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
@@ -123,7 +123,7 @@
             try {
                 return normalizeTrack(localStorage.getItem(TRACK_STORAGE_KEY));
             } catch (error) {
-                console.warn('Unable to read saved workshop track preference.', error);
+                console.warn('No se ha podido leer la preferencia de itinerario guardada.', error);
                 return 'vscode';
             }
         }
@@ -132,7 +132,7 @@
             try {
                 localStorage.setItem(TRACK_STORAGE_KEY, track);
             } catch (error) {
-                console.warn('Unable to persist workshop track preference.', error);
+                console.warn('No se ha podido guardar la preferencia de itinerario.', error);
             }
         }
 
@@ -188,7 +188,7 @@
             });
 
             if (/<!--\s*track:(?:vscode|cli):(?:start|end)\s*-->/.test(filtered)) {
-                console.warn('Unmatched workshop track markers found in markdown content.');
+                console.warn('Se han encontrado marcadores de itinerario sin pareja en el contenido Markdown.');
                 return filtered.replace(/<!--\s*track:(?:vscode|cli):(?:start|end)\s*-->/g, '');
             }
 
@@ -240,7 +240,7 @@
                     }
                 }
             } catch (error) {
-                console.warn('Unable to load saved checklist state.', error);
+                console.warn('No se ha podido cargar el estado guardado de la lista de comprobación.', error);
                 savedStates = [];
             }
 
@@ -276,7 +276,7 @@
                     await navigator.clipboard.writeText(text);
                     return;
                 } catch (error) {
-                    console.warn('Clipboard API failed, attempting fallback method.', error);
+                    console.warn('La API del portapapeles ha fallado; se intentará un método alternativo.', error);
                 }
             }
 
@@ -361,7 +361,7 @@
                         await copyCodeText(codeText);
                         updateCopyButtonState(copyButton, '¡Copiado!', 'is-copied', 'Bloque de código copiado');
                     } catch (error) {
-                        console.error('Failed to copy code to clipboard:', error);
+                        console.error('No se ha podido copiar el código al portapapeles:', error);
                         updateCopyButtonState(copyButton, 'Falló', 'is-error', 'Error al copiar bloque de código');
                     }
                 });
@@ -385,7 +385,7 @@
             buildSidebar();
             updateNavButtons();
             buildFooterNav();
-            document.title = `${step.title} - Mona Mayhem Workshop (${TRACKS[currentTrack].label})`;
+            document.title = `${step.title} - Taller Mona Mayhem (${TRACKS[currentTrack].label})`;
 
             const contentEl = document.getElementById('markdownContent');
             contentEl.innerHTML = '<div class="loading">Cargando contenido</div>';

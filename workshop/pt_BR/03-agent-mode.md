@@ -1,15 +1,22 @@
-<!-- l10n-sync: source-file="03-agent-mode.md" -->
-# Parte 3: Agent Mode — Construa o Jogo
+<!-- l10n-sync: source-file="workshop/03-agent-mode.md" -->
+# Parte 3: Construa o jogo com fluxos agênticos
 
 ---
 
-O Agent Mode permite que o Copilot planeje e implemente alterações de forma autônoma em múltiplos arquivos. Em vez de escrever código linha por linha, você descreve o que deseja e o Copilot descobre quais arquivos criar ou modificar, implementando tudo de ponta a ponta.
+Nesta parte, o Copilot passa de planejador a implementador. Em vez de escrever código linha por linha, você descreve o que quer e deixa o Copilot realizar o trabalho nos arquivos que precisam ser alterados.
 
-## Tarefa 1: Conecte a Batalha
+## Tarefa 1: Conecte a batalha
 
-1. Mude para o modo **Agent** no Copilot Chat (selecione "Agent" no menu dropdown de modo).
-
+<!-- track:vscode:start -->
+1. Mude para o modo **Agent** no Copilot Chat.
 2. Insira este prompt:
+<!-- track:vscode:end -->
+
+<!-- track:cli:start -->
+1. Retorne o Copilot CLI ao fluxo de codificação padrão (ou permaneça no autopilot se quiser que ele continue até você interrompê-lo).
+2. Mencione o arquivo da página para dar contexto adicional, se útil: `@src/pages/index.astro`
+3. Insira este prompt:
+<!-- track:cli:end -->
 
    > Add client-side JavaScript to the battle page that:
    > 1. When the Battle button is clicked, gets both usernames from the inputs
@@ -23,40 +30,54 @@ O Agent Mode permite que o Copilot planeje e implemente alterações de forma au
    >
    > Use TypeScript interfaces for the contribution data structure.
 
-3. Deixe o Agent Mode trabalhar na implementação em `index.astro`. Observe enquanto ele planeja sua abordagem, identifica os arquivos que precisa modificar e escreve o código.
+<!-- track:vscode:start -->
+3. Deixe o Agent Mode trabalhar na implementação em `index.astro`.
+4. Revise as alterações propostas na visualização de diferenças antes de aceitá-las.
+<!-- track:vscode:end -->
 
-4. Revise as alterações propostas na visualização de diff antes de aceitá-las.
+<!-- track:cli:start -->
+4. Deixe o Copilot CLI realizar a implementação em `src/pages/index.astro`.
+5. Use `/diff` para inspecionar as alterações geradas e depois aprová-las.
+<!-- track:cli:end -->
 
-## Tarefa 2: Teste a Batalha
+## Tarefa 2: Teste a batalha
+
+> **⚠️ Não está vendo as alterações?** Se a página de batalha não tiver sido atualizada, pare o servidor de desenvolvimento (`Ctrl+C`), reinicie com `npm run dev` e atualize o navegador.
 
 1. Insira `octocat` e `torvalds` como os dois nomes de usuário e clique em **Battle**.
-2. Você deve ver ambos os gráficos de contribuição renderizados lado a lado com grids coloridos.
+2. Você deverá ver os dois gráficos de contribuições lado a lado, renderizados como grades coloridas.
 3. Teste os casos de erro:
-   - Deixe um ou ambos os campos vazios e clique em Battle — você deve ver um erro de validação.
-   - Insira um nome de usuário inválido — o app deve exibir um erro da API.
-4. Teste pressionando **Enter** em qualquer campo de entrada — deve disparar a batalha assim como clicar no botão.
+   - Deixe um ou ambos os campos vazios e clique em Battle — um erro de validação deverá aparecer.
+   - Insira um nome de usuário inválido — o app deverá exibir um erro da API.
+4. Teste pressionar **Enter** em qualquer campo — isso deverá iniciar a batalha, assim como clicar no botão.
 
-## Tarefa 3: Itere com o Agent
+## Tarefa 3: Itere com o Copilot
 
-Se algo não estiver totalmente correto, dê feedback ao Agent diretamente no chat. Por exemplo:
+Se algo não estiver totalmente correto, dê feedback diretamente ao Copilot. Por exemplo:
 
 - *"The contribution squares are too large, make them 12x12px"*
 - *"Add a hover tooltip showing the date and contribution count"*
 - *"The loading state needs a pulse animation"*
 
-O Agent Mode lida com alterações em múltiplos arquivos e iterações de forma natural. Cada prompt de acompanhamento se baseia no contexto anterior, permitindo que você refine a implementação de forma incremental sem recomeçar do zero.
+<!-- track:vscode:start -->
+O Agent Mode lida naturalmente com alterações em múltiplos arquivos e iterações. Cada prompt de acompanhamento se baseia na conversa anterior, permitindo refinar a implementação de forma incremental sem começar de novo.
+<!-- track:vscode:end -->
 
-## Dicas para o Agent Mode
+<!-- track:cli:start -->
+As sessões do Copilot CLI mantêm o histórico, então cada prompt de acompanhamento se baseia no anterior. Use `/session` ou `/context` para inspecionar o contexto mantido pelo Copilot e `/review` após uma iteração maior para fazer uma verificação extra de bugs ou polimento.
+<!-- track:cli:end -->
 
-- **Seja específico sobre o que você quer** — requisitos claros levam a resultados melhores.
-- **Divida tarefas grandes em prompts menores** se o Agent sair do rumo.
-- **Revise as alterações antes de aceitar** — use a visualização de diff para entender o que foi modificado.
-- **Se os resultados não forem perfeitos, forneça feedback e itere** — o Agent aprende com suas correções dentro da conversa.
+## Dicas para esta parte
 
-## ✅ Parte 3 Concluída
+- **Seja específico sobre o que quer** — requisitos claros levam a resultados melhores.
+- **Divida tarefas grandes em prompts menores** se o Copilot sair do rumo.
+- **Revise as alterações antes de aceitá-las** — inspecionar o código gerado é mais rápido do que reescrevê-lo depois.
+- **Teste o app imediatamente após cada implementação** para manter os problemas localizados.
+
+## ✅ Parte 3 concluída
 
 Você aprendeu a:
 
-- Usar o **Agent Mode** para implementações complexas em múltiplos arquivos
-- **Iterar nos resultados** com feedback direcionado
-- Lidar com o **ciclo de vida completo de uma funcionalidade** — da implementação ao teste e refinamento — em uma única conversa
+- Usar o Copilot para **trabalho de implementação em múltiplos arquivos**
+- **Iterar nos resultados** com prompts de acompanhamento objetivos
+- Lidar com o **ciclo completo da funcionalidade** — implementação, revisão, testes e refinamento
